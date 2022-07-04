@@ -4,7 +4,6 @@
 
 * In this assignment, you shall implement the Naïve Bayes machine learning algorithm and use it on some datasets.
 * You can use any programming language you like.
-* ~~You can work alone or in a group of two students.~~
 * You shall present your application and code at an oral examination.
 * You are not required to build a REST web service for this assignment.
 
