@@ -69,4 +69,5 @@ See the [Deadlines and Submissions](https://coursepress.lnu.se/courses/web-intel
 
 ## Test cases
 
-You can verify your results with the results in [Web ML Experimenter](http://aiguy.000webhostapp.com/webml/experimenter.html). The *Iris* dataset is built-in in Web ML (click the *Try Iris dataset* button), and the *Banknote authentication* can be uploaded from the CSV file. Note that the cross-validation results can differ slightly due to how the data is split into folds, but the accuracy you get should be almost similar to the accuracy in Web ML.
+You can verify your results with the results in [Web ML Demonstrator](http://aiguy.freecluster.eu/webml/experimenter.htmll). The *Iris* dataset is built-in in Web ML (click the *Try Iris dataset* button), and the *Banknote authentication* can be uploaded from the CSV file. Note that the cross-validation results can differ slightly due to how the data is split into folds, but the accuracy you get should be almost similar to the accuracy in Web ML.
+
