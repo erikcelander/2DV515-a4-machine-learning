@@ -49,6 +49,7 @@ def accuracy_score(y_true, y_pred):
 def confusion_matrix(y_true, y_pred):
     classes = np.unique(np.concatenate((y_true, y_pred)))
     matrix = np.zeros((len(classes), len(classes)), dtype=int)
+    
     class_indices = {cls: i for i, cls in enumerate(classes)}
     for true, pred in zip(y_true, y_pred):
         matrix[class_indices[true]][class_indices[pred]] += 1

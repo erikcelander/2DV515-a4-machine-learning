@@ -161,7 +161,9 @@ export function NaiveBayes() {
 
               <div className='flex flex-col items-center justify-center'>
                 <h3 className='text-lg font-medium text-gray-700 mb-2'>Confusion Matrix</h3>
+
                 {renderConfusionMatrix(results.confusion_matrix)}
+                
               </div>
 
               <div>
