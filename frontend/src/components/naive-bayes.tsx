@@ -55,9 +55,40 @@ export function NaiveBayes() {
   const getButtonClass = (buttonType: string, currentSelection: string) => {
     const baseClass = 'px-4 py-2 rounded shadow mx-2 text-white '
     return currentSelection === buttonType
-      ? baseClass + 'bg-green-500' // Highlighted color
+      ? baseClass + 'bg-primary/90' // Highlighted color
       : baseClass + 'bg-blue-500' // Normal color
   }
+
+  const renderConfusionMatrix = (matrix: number[][]) => {
+    return (
+      <table className='min-w-full divide-y divide-gray-200 mt-2'>
+        <thead>
+          <tr className='bg-gray-50'>
+            <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+              
+            </th>
+            {matrix[0].map((_, idx) => (
+              <th key={idx} className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                {idx}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className='bg-white divide-y divide-gray-200'>
+          {matrix.map((row, idx) => (
+            <tr key={idx}>
+              <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>{idx}</td>
+              {row.map((cell, cellIdx) => (
+                <td key={cellIdx} className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  };
 
   return (
     <div className='flex justify-center items-center min-h-screen bg-gray-200'>
@@ -107,45 +138,34 @@ export function NaiveBayes() {
           {results && (
             <>
               <div>
-                <h3 className='text-lg font-medium text-gray-700 mb-2'>Model Performance</h3>
+                <h3 className='text-lg font-medium text-gray-700 mb-2'>Performance</h3>
                 <p className='text-gray-500'>
-                  Accuracy: <span className='font-bold text-black'>{results.accuracy}</span>
+                  Accuracy:{' '}
+                  <span className='font-bold text-black'>
+                    {(results.accuracy * 100).toFixed(2)}%
+                  </span>
                 </p>
                 <p className='text-gray-500'>
                   Evaluation Time:{' '}
-                  <span className='font-bold text-black'>{results.evaluation_time} seconds</span>
+                  <span className='font-bold text-black'>
+                    {results.evaluation_time.toFixed(3)} seconds
+                  </span>
                 </p>
                 <p className='text-gray-500'>
                   Training Time:{' '}
-                  <span className='font-bold text-black'>{results.training_time} seconds</span>
+                  <span className='font-bold text-black'>
+                    {results.training_time.toFixed(3)} seconds
+                  </span>
                 </p>
               </div>
 
-              {/* Dynamic Confusion Matrix */}
-              <div>
+              <div className='flex flex-col items-center justify-center'>
                 <h3 className='text-lg font-medium text-gray-700 mb-2'>Confusion Matrix</h3>
-                {/* Assuming confusion matrix is a 2x2 matrix */}
-                <p className='text-gray-500'>
-                  True Positives:{' '}
-                  <span className='font-bold text-black'>{results.confusion_matrix[0][0]}</span>
-                </p>
-                <p className='text-gray-500'>
-                  False Positives:{' '}
-                  <span className='font-bold text-black'>{results.confusion_matrix[0][1]}</span>
-                </p>
-                <p className='text-gray-500'>
-                  False Negatives:{' '}
-                  <span className='font-bold text-black'>{results.confusion_matrix[1][0]}</span>
-                </p>
-                <p className='text-gray-500'>
-                  True Negatives:{' '}
-                  <span className='font-bold text-black'>{results.confusion_matrix[1][1]}</span>
-                </p>
+                {renderConfusionMatrix(results.confusion_matrix)}
               </div>
 
-              {/* Dynamic Dataset Info */}
               <div>
-                <h3 className='text-lg font-medium text-gray-700 mb-2'>Dataset Info</h3>
+                <h3 className='text-lg font-medium text-gray-700 mb-2'>Dataset</h3>
                 <p className='text-gray-500'>
                   File: <span className='font-bold text-black'>{results.file}</span>
                 </p>

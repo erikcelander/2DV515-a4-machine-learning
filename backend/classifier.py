@@ -9,10 +9,9 @@ class NaiveBayesClassifier:
             X_c = X[y == c]
             n_samples_for_class = len(X_c)
             self.class_stats[c] = {
-                # Store the log of the prior probability
                 'log_prior_probability': np.log(n_samples_for_class / len(X)),
                 'mean': np.mean(X_c, axis=0),
-                'var': np.var(X_c, axis=0, ddof=1)  # ddof=1 for sample variance
+                'var': np.var(X_c, axis=0, ddof=1) 
             }
 
     def predict(self, X):
@@ -26,7 +25,6 @@ class NaiveBayesClassifier:
     def calculate_class_probabilities(self, input_vector):
         log_probabilities = {}
         for class_value, class_stats in self.class_stats.items():
-            # Start with the log of the prior probability
             log_prob = class_stats['log_prior_probability']
             for i in range(len(class_stats['mean'])):
                 log_prob += self.gaussian_log_probability(
@@ -35,21 +33,20 @@ class NaiveBayesClassifier:
         return log_probabilities
 
     def gaussian_log_probability(self, x, mean, var):
-        # Avoid division by zero in case variance is zero
+        # avoid division by zero in case variance is zero
         var = max(var, 1e-6)
-        # Use log probabilities for numerical stability
+
+        # use log probabilities for numerical stability
         exponent = -((x - mean) ** 2 / (2 * var))
         log_prob = exponent - np.log(np.sqrt(2 * np.pi * var))
         return log_prob
 
 def accuracy_score(y_true, y_pred):
-    """Calculate the accuracy of the predictions."""
     correct = np.sum(y_true == y_pred)
     total = len(y_true)
     return correct / total
 
 def confusion_matrix(y_true, y_pred):
-    """Generate a confusion matrix."""
     classes = np.unique(np.concatenate((y_true, y_pred)))
     matrix = np.zeros((len(classes), len(classes)), dtype=int)
     class_indices = {cls: i for i, cls in enumerate(classes)}
@@ -58,7 +55,6 @@ def confusion_matrix(y_true, y_pred):
     return matrix
 
 def crossval_predict(X, y, folds):
-    """Run n-fold cross-validation and return predictions."""
     if folds <= 1 or folds > len(X):
         raise ValueError("Invalid number of folds")
     
