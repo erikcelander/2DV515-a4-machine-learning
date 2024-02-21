@@ -1,5 +1,8 @@
 # A4 - Machine Learning
 
+#### Backend: go
+#### Frontend: Next.js
+
 ## Description
 
 * In this assignment, you shall implement the Naïve Bayes machine learning algorithm and use it on some datasets.
